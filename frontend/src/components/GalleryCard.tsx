@@ -93,17 +93,6 @@ function GalleryCardInner({
       data-sp={sp}
       data-photos-idx={index}
       onClick={(event) => {
-        const target = event.target as HTMLElement;
-        if (target.closest('input.selchk')) {
-          event.preventDefault();
-          event.stopPropagation();
-          onToggleCheck(index, event.shiftKey);
-          return;
-        }
-        if (target.closest('.sel-wrap')) {
-          event.stopPropagation();
-          return;
-        }
         onCardClick(event, entry);
       }}
       onContextMenu={(event) => onContextMenu(event, entry)}
@@ -114,6 +103,10 @@ function GalleryCardInner({
             type="checkbox"
             className="selchk"
             checked={selected}
+            onClick={(event) => {
+              event.stopPropagation();
+              onToggleCheck(index, event.shiftKey);
+            }}
             readOnly
             aria-label={`选择 ${photo.filename}`}
           />

@@ -9,7 +9,7 @@ spec:
   restartPolicy: Always
   containers:
     - name: photo-viewer
-      image: localhost/photo-viewer:latest
+      image: localhost/aeroframe:latest
       imagePullPolicy: IfNotPresent
       ports:
         - containerPort: 80

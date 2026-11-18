@@ -1,6 +1,6 @@
-# Aviation-Photo-Viewer
+# AeroFrame
 
-Aviation-Photo-Viewer 是一个轻量的照片浏览和管理工具，并且对于航空摄影师提供了一些客制化的服务。
+AeroFrame 是一个轻量的照片浏览和管理工具，并且对于航空摄影师提供了一些客制化的服务。
 
 本项目前后端分离：`backend/` 是 Rust + actix-web 服务，`frontend/` 是 TypeScript + React + antd 单页应用。构建镜像时前端会打包成静态文件并和后端一起放进一个容器，适合在本机、NAS、家庭服务器上浏览大量照片。
 
@@ -111,10 +111,10 @@ http://localhost:3000
 项目已经在 GitHub Packages 中生成容器镜像：
 
 ```text
-ghcr.io/aaronzsam101/aviation-photo-viewer:latest
+ghcr.io/aaronzsam101/aeroframe:latest
 ```
 
-镜像页面：[AaronZSAM101/Aviation-Photo-Viewer](https://github.com/AaronZSAM101/Aviation-Photo-Viewer/pkgs/container/aviation-photo-viewer)
+镜像页面：[AaronZSAM101/AeroFrame](https://github.com/AaronZSAM101/AeroFrame/pkgs/container/aeroframe)
 
 镜像里默认监听容器内 `80` 端口，所以最简单的端口映射是 `3000:80`。
 
@@ -128,7 +128,7 @@ podman run -d \
   -v /你的照片目录:/photos:ro \
   -e PHOTOS_DIR=/photos \
   -e READ_ONLY=true \
-  ghcr.io/aaronzsam101/aviation-photo-viewer:latest
+  ghcr.io/aaronzsam101/aeroframe:latest
 ```
 
 允许在网页里删除、移动、复制、重命名：
@@ -141,7 +141,7 @@ podman run -d \
   -v /你的照片目录:/photos \
   -e PHOTOS_DIR=/photos \
   -e READ_ONLY=false \
-  ghcr.io/aaronzsam101/aviation-photo-viewer:latest
+  ghcr.io/aaronzsam101/aeroframe:latest
 ```
 
 打开：
@@ -172,19 +172,19 @@ http://localhost:3000
 示例 YAML 默认使用 GitHub Packages 镜像：
 
 ```text
-ghcr.io/aaronzsam101/aviation-photo-viewer:latest
+ghcr.io/aaronzsam101/aeroframe:latest
 ```
 
 如果你 clone 代码后自己修改并重新构建镜像，需要把 `photo-viewer-pod.yaml` 里的 `image` 改成你自己构建出来的镜像名。例如：
 
 ```yaml
-image: localhost/photo-viewer:latest
+image: localhost/aeroframe:latest
 ```
 
 或者：
 
 ```yaml
-image: photo-viewer:latest
+image: aeroframe:latest
 ```
 
 启动：
@@ -257,7 +257,7 @@ rm "$HOME/Library/LaunchAgents/com.aaron.photo-viewer.plist"
 镜像：
 
 ```text
-ghcr.io/aaronzsam101/aviation-photo-viewer:latest
+ghcr.io/aaronzsam101/aeroframe:latest
 ```
 
 如果界面让你选择平台或架构，群晖用户请选择：
@@ -327,7 +327,7 @@ READ_ONLY=true 或 false
 镜像：
 
 ```text
-ghcr.io/aaronzsam101/aviation-photo-viewer:latest
+ghcr.io/aaronzsam101/aeroframe:latest
 ```
 
 端口：
@@ -672,7 +672,7 @@ cd frontend && npm test        # vitest，无浏览器依赖
 功能与交互回归（需要 Podman，全部在容器里跑，不碰 3000 端口的生产实例）：
 
 ```bash
-./verify/suite.sh localhost/photo-viewer:latest
+./verify/suite.sh localhost/aeroframe:latest
 ```
 
 它会起三个临时实例（只读挂真实图库 + 可写挂临时卷 + 一份从真实库只读抽出来的 18 张样本库），跑 parity / batch4-ui / conflict-ui / mobile-ui / similar / livery 六套断言，最后打印通过或失败的套件。彩绘提醒那一套刻意不给排班数据源，只验「没配时怎么说」和本地关注表的读写闭环。细节和已知坑见 [verify/README.md](verify/README.md)。
@@ -689,13 +689,13 @@ podman run --rm --shm-size=1g --network podman \
 ### 构建镜像
 
 ```bash
-podman build -t photo-viewer .
+podman build -t aeroframe .
 ```
 
 Docker 用户：
 
 ```bash
-docker build -t photo-viewer .
+docker build -t aeroframe .
 ```
 
 ### Containerfile 说明

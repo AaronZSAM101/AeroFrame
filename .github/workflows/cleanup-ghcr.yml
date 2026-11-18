@@ -30,7 +30,7 @@ jobs:
           script: |
             const owner = context.repo.owner;
             const packageType = 'container';
-            const packageName = context.repo.repo; // repo name
+            const packageName = context.repo.repo.toLowerCase(); // GHCR package names are lowercase
             const keep = parseInt((github.event && github.event.inputs && github.event.inputs.keep) || '1', 10) || 1;
             const dryRunInput = (github.event && github.event.inputs && github.event.inputs.dry_run) || 'false';
             const dryRun = String(dryRunInput).toLowerCase() === 'true';
