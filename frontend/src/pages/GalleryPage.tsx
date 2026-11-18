@@ -475,36 +475,6 @@ export function GalleryPage() {
     [message, readOnly, refreshStaged],
   );
 
-  const handleBulkDelete = async () => {
-    if (readOnly) {
-      message.warning('当前为只读模式，管理操作已禁用');
-      return;
-    }
-    const targets = [...selected];
-    if (!targets.length) {
-      message.warning('请先选择要删除的照片');
-      return;
-    }
-    for (const sp of targets) {
-      await StageApi.stage({ kind: 'delete', src: sp }).catch(() => undefined);
-    }
-    dispatch(setSelection({ selected: [], anchor: null }));
-    await refreshStaged();
-    message.success('已加入分批（删除）');
-  };
-
-  const handleBulkMove = () => {
-    if (readOnly) {
-      message.warning('当前为只读模式，管理操作已禁用');
-      return;
-    }
-    if (!selected.length) {
-      message.warning('请先选择要移动的照片');
-      return;
-    }
-    setBulkMoveOpen(true);
-  };
-
   const openSetDir = async () => {
     let allowed = false;
     try {
@@ -523,10 +493,10 @@ export function GalleryPage() {
   const handleContextMenu = (event: MouseEvent<HTMLDivElement>, entry: GalleryCardEntry) => {
     event.preventDefault();
     const sp = subpath(entry.photo);
-    const bulk = selected.length > 1;
+    const bulk = selected.length > 1 && selected.includes(sp);
 
     if (!bulk) {
-      dispatch(setSelection({ selected: [sp], anchor }));
+      dispatch(setSelection({ selected: [sp], anchor: sp }));
     }
 
     const items: ContextMenuItem[] = [];
@@ -668,8 +638,6 @@ export function GalleryPage() {
           liveryCount={liveryCount}
           onOpenShortcuts={() => setShortcutsOpen(true)}
           onOpenSetDir={() => void openSetDir()}
-          onBulkDelete={() => void handleBulkDelete()}
-          onBulkMove={handleBulkMove}
           onSortChange={(value) => {
             dispatch(setSort(value));
             void loadPhotos(value);

@@ -9,7 +9,7 @@ use std::{
         Arc, Mutex,
     },
 };
-use tokio::sync::RwLock;
+use tokio::{io::AsyncReadExt, sync::RwLock};
 use uuid::Uuid;
 
 use crate::cache_paths;
@@ -27,6 +27,21 @@ fn path_error_response(error: PathError) -> HttpResponse {
     }
 }
 
+/// 分块读取原图计算 SHA256，缓冲区大小固定为 64 KiB。
+async fn sha256_file(path: &std::path::Path) -> std::io::Result<String> {
+    let mut file = tokio::fs::File::open(path).await?;
+    let mut hasher = Sha256::new();
+    let mut buffer = vec![0u8; 64 * 1024];
+    loop {
+        let count = file.read(&mut buffer).await?;
+        if count == 0 {
+            break;
+        }
+        hasher.update(&buffer[..count]);
+    }
+    Ok(hex::encode(hasher.finalize()))
+}
+
 /// 对文件进行哈希计算
 pub async fn hash_file(subpath: web::Path<String>, state: web::Data<AppState>) -> HttpResponse {
     let path = {
@@ -36,16 +51,10 @@ pub async fn hash_file(subpath: web::Path<String>, state: web::Data<AppState>) -
             Err(error) => return path_error_response(error),
         }
     };
-    let data = match tokio::fs::read(&path).await {
-        Ok(d) => d,
+    let sha_hex = match sha256_file(&path).await {
+        Ok(hash) => hash,
         Err(_) => return HttpResponse::NotFound().finish(),
     };
-
-    // SHA256 哈希
-    let mut hasher = Sha256::new();
-    hasher.update(&data);
-    let sha = hasher.finalize();
-    let sha_hex = hex::encode(sha);
 
     // 感知哈希：8x8 平均哈希 (aHash)。RAW 要起 exiftool 取内嵌预览，别在事件循环线程上干
     let img = match tokio::task::spawn_blocking(move || crate::decode::open_image(&path)).await {
@@ -89,20 +98,14 @@ pub async fn compare_photos(
             }
         }
     };
-    let da = match tokio::fs::read(&pa).await {
-        Ok(d) => d,
+    let sha_a = match sha256_file(&pa).await {
+        Ok(hash) => hash,
         Err(_) => return HttpResponse::NotFound().body("a not found"),
     };
-    let db = match tokio::fs::read(&pb).await {
-        Ok(d) => d,
+    let sha_b = match sha256_file(&pb).await {
+        Ok(hash) => hash,
         Err(_) => return HttpResponse::NotFound().body("b not found"),
     };
-
-    let mut sha = Sha256::new();
-    sha.update(&da);
-    let sha_a = hex::encode(sha.finalize_reset());
-    sha.update(&db);
-    let sha_b = hex::encode(sha.finalize());
 
     // RAW 要起 exiftool 取内嵌预览，两张一起放到阻塞线程里解码
     let (img_a, img_b) = match tokio::task::spawn_blocking(move || {
@@ -886,4 +889,21 @@ pub async fn get_similar_scan_job(
         Err(_) => return HttpResponse::InternalServerError().finish(),
     };
     HttpResponse::Ok().json(json!(snapshot))
+}
+
+#[cfg(test)]
+mod streaming_hash_tests {
+    use super::*;
+
+    #[tokio::test]
+    async fn streaming_hash_matches_whole_file_across_chunk_boundaries() {
+        let path = std::env::temp_dir().join(format!("pv-hash-{}", Uuid::new_v4()));
+        for size in [0, 3, 65536, 65537, 150000] {
+            let bytes: Vec<u8> = (0..size).map(|i| (i % 251) as u8).collect();
+            tokio::fs::write(&path, &bytes).await.unwrap();
+            assert_eq!(sha256_file(&path).await.unwrap(), hex::encode(Sha256::digest(&bytes)));
+        }
+        tokio::fs::remove_file(&path).await.unwrap();
+        assert_eq!(sha256_file(&path).await.unwrap_err().kind(), std::io::ErrorKind::NotFound);
+    }
 }

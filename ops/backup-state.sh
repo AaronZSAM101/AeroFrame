@@ -6,7 +6,7 @@
 #
 # 可选环境变量：
 #   PHOTOS_DIR  照片库路径；不设就从 photo-viewer-pod.yaml 的 hostPath 读
-#   IMAGE       用来算缓存目录的镜像，默认 localhost/photo-viewer:latest
+#   IMAGE       用来算缓存目录的镜像，默认 localhost/aeroframe:latest
 #   KEEP        backup 保留最近几份，默认 10
 #
 # migrate 的可选参数：<外部缓存目录> 后面可以跟 --with-thumbs（默认不搬 93MB 缩略图，
@@ -17,7 +17,7 @@ set -uo pipefail
 
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
 YAML="$REPO/photo-viewer-pod.yaml"
-IMAGE=${IMAGE:-localhost/photo-viewer:latest}
+IMAGE=${IMAGE:-localhost/aeroframe:latest}
 KEEP=${KEEP:-10}
 STATE_NAME=".photo_viewer"
 

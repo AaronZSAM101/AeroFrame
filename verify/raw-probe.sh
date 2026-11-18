@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # P2-4 RAW 分支探针。
 #
-#   IMAGE=localhost/photo-viewer:p2c ./verify/raw-probe.sh
+#   IMAGE=localhost/aeroframe:p2c ./verify/raw-probe.sh
 #
 # 为什么是“合成 RAW”：这台机器上能找到的 CR2/DNG 都在云盘里且是没下载的占位文件，
 # 读第一个字节就超时，拿不到真样本。exiftool 又不肯把 PreviewImage 写进 JPEG 容器
@@ -17,7 +17,7 @@
 # 安全边界：只在 verify/.scratch/raw 里造文件，只监听 3905，绝不碰 3000。
 set -uo pipefail
 
-IMAGE=${IMAGE:-localhost/photo-viewer:latest}
+IMAGE=${IMAGE:-localhost/aeroframe:latest}
 PORT=${PORT:-3905}
 NAME=pv-raw-probe
 HERE="$(cd "$(dirname "$0")" && pwd)"

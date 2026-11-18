@@ -2,7 +2,7 @@
 # 一键验证：起临时实例 → 播种测试库 → 跑核心套件 → 清理。
 #
 #   ./verify/suite.sh                                   # 验 latest 镜像
-#   ./verify/suite.sh localhost/photo-viewer:mobile6     # 指哪个镜像验哪个
+#   ./verify/suite.sh localhost/aeroframe:mobile6     # 指哪个镜像验哪个
 #   LIB=/path/to/Aviation ./verify/suite.sh              # 换真实图库路径
 #
 # 安全边界：
@@ -12,7 +12,7 @@
 # macOS 注意：Podman 虚拟机没共享 /tmp，临时卷必须放在仓库目录内。
 set -uo pipefail
 
-IMAGE=${1:-localhost/photo-viewer:latest}
+IMAGE=${1:-localhost/aeroframe:latest}
 CHROME=${CHROME:-docker.io/zenika/alpine-chrome:with-node}
 LIB=${LIB:-"$HOME/Library/CloudStorage/SynologyDrive-Photos/Photos/Aviation"}
 RO_PORT=${RO_PORT:-3901}

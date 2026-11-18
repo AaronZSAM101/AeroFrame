@@ -28,7 +28,8 @@ const SCALE_OPTIONS = [
 
 const MOBILE_QUERY = '(max-width: 900px)';
 
-const THEME_ICON: Record<ThemeMode, string> = { auto: '◐', light: '☀', dark: '☾' };const THEME_LABEL: Record<ThemeMode, string> = { auto: '自动', light: '亮色', dark: '暗色' };
+const THEME_ICON: Record<ThemeMode, string> = { auto: '◐', light: '☀', dark: '☾' };
+const THEME_LABEL: Record<ThemeMode, string> = { auto: '自动', light: '亮色', dark: '暗色' };
 const THEME_ORDER: ThemeMode[] = ['auto', 'light', 'dark'];
 
 interface AppHeaderProps {
@@ -46,8 +47,6 @@ interface AppHeaderProps {
   liveryCount: number;
   onOpenShortcuts: () => void;
   onOpenSetDir: () => void;
-  onBulkDelete: () => void;
-  onBulkMove: () => void;
   onSortChange: (sort: SortKey) => void;
 }
 
@@ -66,8 +65,6 @@ export function AppHeader({
   liveryCount,
   onOpenShortcuts,
   onOpenSetDir,
-  onBulkDelete,
-  onBulkMove,
   onSortChange,
 }: AppHeaderProps) {
   const dispatch = useAppDispatch();
@@ -94,8 +91,6 @@ export function AppHeader({
     manageOnly?: boolean;
     run: () => void;
   }[] = [
-    { key: 'bulk-move', label: '📁 批量移动', manageOnly: true, run: onBulkMove },
-    { key: 'bulk-delete', label: '🗑️ 批量删除', manageOnly: true, run: onBulkDelete },
     {
       key: 'staged',
       label: `📄 分批列表${stagedCount ? ` (${stagedCount})` : ''}`,
@@ -213,6 +208,7 @@ export function AppHeader({
         <div className="app-version" title={versionTitle}>
           {version || '版本未知'}
         </div>
+        <span className="stats" title={stats}>{stats}</span>
       </div>
       <div className="toolbar">
         <Button size="small" onClick={onReload}>↺ 刷新</Button>
@@ -249,7 +245,6 @@ export function AppHeader({
           {THEME_ICON[themeMode]}
         </Button>
 
-        <span className="stats">{stats}</span>
       </div>
     </header>
   );

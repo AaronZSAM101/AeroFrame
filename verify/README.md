@@ -9,8 +9,8 @@
 ## 一键跑
 
 ```bash
-./verify/suite.sh                                 # 验 localhost/photo-viewer:latest
-./verify/suite.sh localhost/photo-viewer:mobile6  # 指哪个镜像验哪个
+./verify/suite.sh                                 # 验 localhost/aeroframe:latest
+./verify/suite.sh localhost/aeroframe:mobile6  # 指哪个镜像验哪个
 LIB=/path/to/Aviation ./verify/suite.sh           # 换真实图库路径
 ```
 
