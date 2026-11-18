@@ -4,6 +4,7 @@ import type { MenuProps } from 'antd';
 import { useAppDispatch, useAppSelector } from '../store';
 import { cycleThemeMode, setBaseView, setSort, setTimeScale } from '../store/appSlice';
 import type { BaseView, SortKey, ThemeMode, TimeScale } from '../types';
+import { AppBrand } from './AppBrand';
 
 const SORT_OPTIONS = [
   { value: 'date-asc', label: '拍摄日期 ↑ 旧→新' },
@@ -180,7 +181,7 @@ export function AppHeader({
     return (
       <header className="app-header app-header-compact">
         <div className="brand">
-          <div className="logo">📷 PHOTO VIEWER</div>
+          <AppBrand />
           <span className="stats">{stats}</span>
         </div>
         <div className="toolbar">
@@ -208,7 +209,7 @@ export function AppHeader({
   return (
     <header className="app-header">
       <div className="brand">
-        <div className="logo">📷 PHOTO VIEWER</div>
+        <AppBrand />
         <div className="app-version" title={versionTitle}>
           {version || '版本未知'}
         </div>

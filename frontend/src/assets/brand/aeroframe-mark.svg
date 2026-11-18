@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg role="img" aria-label="AeroFrame 航影" xmlns="http://www.w3.org/2000/svg" viewBox="23.20 23.20 977.60 977.60" width="978" height="978">
+<defs><linearGradient id="gDisc" x1="0.15" y1="0" x2="0.85" y2="1"><stop offset="0" stop-color="#17456E"/><stop offset="0.42" stop-color="#0A2848"/><stop offset="1" stop-color="#03152A"/></linearGradient><linearGradient id="gA" x1="0" y1="0" x2="0.45" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="0.55" stop-color="#FBFDFF"/><stop offset="1" stop-color="#CBDCEB"/></linearGradient><linearGradient id="gA2" x1="0" y1="0" x2="0.6" y2="1"><stop offset="0" stop-color="#F2F8FF"/><stop offset="1" stop-color="#B9CFE3"/></linearGradient></defs>
+<clipPath id="discClip"><circle cx="512.0" cy="512.0" r="470.0"/></clipPath>
+<g clip-path="url(#discClip)">
+<circle cx="512.0" cy="512.0" r="470.0" fill="url(#gDisc)"/>
+<circle cx="512.0" cy="512.0" r="468.0" fill="none" stroke="#FFFFFF" stroke-opacity="0.12" stroke-width="4"/>
+<path fill="none" stroke="#31D2EE" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" d="M158.38,390.24 A374.00,374.00 0 0 1 879.13,440.64 M671.80,198.37 A352.00,352.00 0 0 1 859.67,567.06 M692.88,592.53 A198.00,198.00 0 0 1 331.12,592.53"/>
+<path fill="none" stroke="#31D2EE" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1 34" opacity="0.95" d="M262.58,656.00 A288.00,288.00 0 0 1 423.00,238.10"/>
+<path fill="none" stroke="#A9C3D8" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" d="M77.25,530.80 L267.60,530.80"/>
+<path fill="none" stroke="#31D2EE" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" d="M203.21,422.70 L203.21,657.70"/>
+<path fill="none" stroke="#31D2EE" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" d="M512.00,526.10 L512.00,582.50"/>
+<path fill="none" stroke="#31D2EE" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" d="M512.00,841.00 L512.00,902.10"/>
+<path fill="#FFFFFF" d="M512.00,98.40 L533.62,147.75 L490.38,147.75 Z"/>
+<path fill="none" stroke="#FFFFFF" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" d="M512.00,917.14 L512.00,972.60"/>
+<path fill="none" stroke="#FFFFFF" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" d="M909.15,530.80 L974.95,530.80"/>
+<path fill="none" stroke="#FFFFFF" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" d="M49.05,530.80 L114.85,530.80"/>
+<path fill="url(#gA)" d="M215.90,700.00 L514.35,216.84 L809.04,835.36 L630.44,627.62 L514.35,441.50 L374.76,681.20 Z"/>
+<path fill="none" stroke="#31D2EE" stroke-width="17" stroke-linecap="round" stroke-linejoin="round" d="M214.96,770.50 C389.80,888.00 540.20,681.20 709.87,536.91 L841.94,391.21"/>
+<!-- AeroFrame instrument: overlapping photo prints. -->
+<rect x="340" y="650" width="310" height="198" rx="18" fill="#1E7FD8" transform="rotate(-7 495 749)"/>
+<rect x="362" y="610" width="310" height="212" rx="18" fill="#F4FAFF" stroke="#2FD0EC" stroke-width="10"/>
+<rect x="388" y="636" width="258" height="157" rx="6" fill="#0A2848"/>
+<circle cx="588" cy="673" r="20" fill="#2FD0EC"/>
+<path d="m389 772 76-86 48 52 35-36 98 91H388Z" fill="#A9C3D8"/>
+<path d="m389 772 76-86 48 52 35-36 98 91H388Z" fill="#2FD0EC" opacity=".34"/>
+<circle cx="215.0" cy="770.5" r="56.4" fill="#FFFFFF"/>
+<circle cx="215.0" cy="770.5" r="31.0" fill="#1E7FD8"/>
+<circle cx="841.9" cy="391.2" r="43.2" fill="#FFFFFF"/>
+<circle cx="841.9" cy="391.2" r="23.8" fill="#17456E"/>
+<circle cx="709.9" cy="536.9" r="37.6" fill="#FFFFFF"/>
+<circle cx="709.9" cy="536.9" r="20.7" fill="#17456E"/>
+<circle cx="517.6" cy="613.5" r="27.3" fill="#FFFFFF"/>
+<circle cx="517.6" cy="613.5" r="15.0" fill="#1E7FD8"/>
+<circle cx="269.9" cy="348.7" r="8" fill="#31D2EE"/>
+<circle cx="355.1" cy="261.0" r="11" fill="#31D2EE"/>
+</g>
+</svg>
