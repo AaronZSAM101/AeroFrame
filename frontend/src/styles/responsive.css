@@ -8,9 +8,11 @@
     max-width:100%;
   }
   .logo{
-    font-size:12px;
-    letter-spacing:.06em;
+    gap:6px;
   }
+  .brand-mark{width:34px;height:34px}
+  .brand-wordmark{width:clamp(104px,18vw,124px)}
+  .brand-caption{display:none}
   .app-version{
     max-width:180px;
     font-size:9px;
@@ -37,7 +39,7 @@
 
   /* 手机顶栏（AppHeader 的 compact 分支）：主操作一行，筛选一行 */
   .app-header-compact{flex-wrap:wrap;gap:6px}
-  .app-header-compact .brand{width:100%;display:flex;align-items:baseline;gap:10px;min-width:0}
+  .app-header-compact .brand{width:100%;display:flex;flex-direction:row;align-items:center;gap:10px;min-width:0}
   .app-header-compact .brand .stats{
     margin-left:auto;
     flex:0 1 auto;
@@ -316,6 +318,9 @@
 }
 
 @media (max-width: 560px){
+  /* 窄屏只保留徽章，释放品牌行空间给照片统计。 */
+  .brand-lockup{display:none}
+  .app-header-compact .brand .stats{max-width:calc(100% - 44px)}
   #empty{padding:24px 14px}
   #empty p{font-size:11px}
   :root{--card-min:122px;--card-gap:7px}
